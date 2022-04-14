@@ -104,6 +104,25 @@ public class TrainingPlanController{
         }
     }
 
+    @PutMapping("/editPlan/{id_tp}")
+    public ResponseEntity<Optional<TrainingPlan>> editPlan(@RequestBody TrainingPlan trainingPlanBody, @PathVariable String id_tp) {
+        try {
+            Optional<TrainingPlan> trainingPlan = trainingPlanService.findById(id_tp);
+            trainingPlan.get().setName(trainingPlanBody.getName());
+            trainingPlan.get().setDuration(trainingPlanBody.getDuration());
+            trainingPlan.get().setPrice(trainingPlanBody.getPrice());
+            trainingPlanService.save(trainingPlan.get());
+
+            return new ResponseEntity<>(trainingPlan, HttpStatus.OK);
+
+        } catch (Exception err) {
+            System.out.println("Edit TP");
+            System.out.println(LocalDateTime.now());
+            System.out.println(err);
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PutMapping("/addTrainingDay/{id_tp}")
     public ResponseEntity<Optional<TrainingPlan>> addTrainingDay(@RequestBody IdHelperTrainingDay id_day, @PathVariable String id_tp) {
         try {

@@ -53,6 +53,13 @@ public class TrainingPlan implements Comparable<TrainingPlan> {
         this.trainerId = trainerId;
     }
 
+    public TrainingPlan(String id, String name, int duration, Double price) {
+        this.id = id;
+        this.name = name;
+        this.duration = duration;
+        this.price = price;
+    }
+
     public String getId() {
         return id;
     }
